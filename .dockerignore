@@ -1,0 +1,14 @@
+.git
+.gitignore
+
+web/tmp
+web/log
+web/storage
+web/node_modules
+web/.bundle
+
+scraper/__pycache__
+scraper/.pytest_cache
+*.pyc
+
+.env
