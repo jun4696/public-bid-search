@@ -30,3 +30,380 @@ Using vips to process variants requires the libvips library. Please install libv
   [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='App'*/[0m
   [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
   [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO "$user", public /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateMunicipalities (20260824074459)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (10.2ms)[0m  [1m[35mCREATE TABLE "municipalities" ("id" bigserial primary key, "name" character varying NOT NULL, "prefecture" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_municipalities_on_prefecture_and_name" ON "municipalities" ("prefecture", "name") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074459') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateSouces (20260824074533)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "souces" ("id" bigserial primary key, "municipality_id" bigint NOT NULL, "name" character varying NOT NULL, "url" character varying NOT NULL, "source_type" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_d2e097b628"
+FOREIGN KEY ("municipality_id")
+  REFERENCES "municipalities" ("id")
+) /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_souces_on_municipality_id" ON "souces" ("municipality_id") /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_souces_on_municipality_id_and_name" ON "souces" ("municipality_id", "name") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074533') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateBids (20260824074608)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "bids" ("id" bigserial primary key, "title" character varying NOT NULL, "status" character varying, "source_status" character varying, "category" character varying, "location" character varying, "department" character varying, "announcement_date" date, "application_start" date, "application_end" date, "bid_date" date, "project_period" character varying, "project_period_start" date, "project_period_end" date, "summary" text, "qualification" text, "contract" character varying, "bid_amount" decimal(15,2), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_bids_on_title" ON "bids" ("title") /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bids_on_status" ON "bids" ("status") /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_bids_on_category" ON "bids" ("category") /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bids_on_announcement_date" ON "bids" ("announcement_date") /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_bids_on_application_end" ON "bids" ("application_end") /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bids_on_bid_date" ON "bids" ("bid_date") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074608') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateBidSouces (20260824074644)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateBidSources (20260824074644)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateBidSources (20260824074644)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateBidSources (20260824074644)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateBidSources (20260824074644)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE TABLE "bid_souces" ("id" bigserial primary key, "bid_id" bigint NOT NULL, "souce_id" bigint NOT NULL, "format" character varying NOT NULL, "external_id" character varying, "source_url" character varying NOT NULL, "content_hash" character varying, "fetched_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_f3a00bda5b"
+FOREIGN KEY ("bid_id")
+  REFERENCES "bids" ("id")
+, CONSTRAINT "fk_rails_d00bcaa18a"
+FOREIGN KEY ("souce_id")
+  REFERENCES "souces" ("id")
+) /*application='App'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_bid_souces_on_bid_id" ON "bid_souces" ("bid_id") /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bid_souces_on_souce_id" ON "bid_souces" ("souce_id") /*application='App'*/[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_bid_sources_on_bid_id_and_external_id" ON "bid_sources" ("bid_id", "external_id") WHERE external_id IS NOT NULL /*application='App'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateBidSources (20260824074644)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE TABLE "bid_souces" ("id" bigserial primary key, "bid_id" bigint NOT NULL, "souce_id" bigint NOT NULL, "format" character varying NOT NULL, "external_id" character varying, "source_url" character varying NOT NULL, "content_hash" character varying, "fetched_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_f3a00bda5b"
+FOREIGN KEY ("bid_id")
+  REFERENCES "bids" ("id")
+, CONSTRAINT "fk_rails_d00bcaa18a"
+FOREIGN KEY ("souce_id")
+  REFERENCES "souces" ("id")
+) /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bid_souces_on_bid_id" ON "bid_souces" ("bid_id") /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_bid_souces_on_souce_id" ON "bid_souces" ("souce_id") /*application='App'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_bid_sources_on_bid_id_and_external_id" ON "bid_sources" ("bid_id", "external_id") WHERE external_id IS NOT NULL /*application='App'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK /*application='App'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (42.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "public_bid_search_development" /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (35.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "public_bid_search_test" /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (105.5ms)[0m  [1m[35mCREATE DATABASE "public_bid_search_development" ENCODING = 'unicode' /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (54.6ms)[0m  [1m[35mCREATE DATABASE "public_bid_search_test" ENCODING = 'unicode' /*application='App'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='App'*/[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[35m (1.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (0) /*application='App'*/[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-08-24 13:42:48.196286', '2026-08-24 13:42:48.196289') RETURNING "key" /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'a71d23a9d8025196df4aad6f0cbff1ce3af537cf', '2026-08-24 13:42:48.201347', '2026-08-24 13:42:48.201349') RETURNING "key" /*application='App'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateMunicipalities (20260824074459)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "municipalities" ("id" bigserial primary key, "name" character varying NOT NULL, "prefecture" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_municipalities_on_prefecture_and_name" ON "municipalities" ("prefecture", "name") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074459') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateSources (20260824074533)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "souces" ("id" bigserial primary key, "municipality_id" bigint NOT NULL, "name" character varying NOT NULL, "url" character varying NOT NULL, "source_type" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_d2e097b628"
+FOREIGN KEY ("municipality_id")
+  REFERENCES "municipalities" ("id")
+) /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_souces_on_municipality_id" ON "souces" ("municipality_id") /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_souces_on_municipality_id_and_name" ON "souces" ("municipality_id", "name") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074533') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateBids (20260824074608)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "bids" ("id" bigserial primary key, "title" character varying NOT NULL, "status" character varying, "source_status" character varying, "category" character varying, "location" character varying, "department" character varying, "announcement_date" date, "application_start" date, "application_end" date, "bid_date" date, "project_period" character varying, "project_period_start" date, "project_period_end" date, "summary" text, "qualification" text, "contract" character varying, "bid_amount" decimal(15,2), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bids_on_title" ON "bids" ("title") /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_bids_on_status" ON "bids" ("status") /*application='App'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_bids_on_category" ON "bids" ("category") /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bids_on_announcement_date" ON "bids" ("announcement_date") /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_bids_on_application_end" ON "bids" ("application_end") /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_bids_on_bid_date" ON "bids" ("bid_date") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074608') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateBidSources (20260824074644)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "bid_souces" ("id" bigserial primary key, "bid_id" bigint NOT NULL, "souce_id" bigint NOT NULL, "format" character varying NOT NULL, "external_id" character varying, "source_url" character varying NOT NULL, "content_hash" character varying, "fetched_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_f3a00bda5b"
+FOREIGN KEY ("bid_id")
+  REFERENCES "bids" ("id")
+, CONSTRAINT "fk_rails_d00bcaa18a"
+FOREIGN KEY ("souce_id")
+  REFERENCES "souces" ("id")
+) /*application='App'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_bid_souces_on_bid_id" ON "bid_souces" ("bid_id") /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bid_souces_on_souce_id" ON "bid_souces" ("souce_id") /*application='App'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_bid_sources_on_bid_id_and_external_id" ON "bid_sources" ("bid_id", "external_id") WHERE external_id IS NOT NULL /*application='App'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK /*application='App'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (160.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "public_bid_search_development" /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (36.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "public_bid_search_test" /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (60.8ms)[0m  [1m[35mCREATE DATABASE "public_bid_search_development" ENCODING = 'unicode' /*application='App'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (50.0ms)[0m  [1m[35mCREATE DATABASE "public_bid_search_test" ENCODING = 'unicode' /*application='App'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='App'*/[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (0) /*application='App'*/[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-08-24 13:47:10.408025', '2026-08-24 13:47:10.408028') RETURNING "key" /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'a71d23a9d8025196df4aad6f0cbff1ce3af537cf', '2026-08-24 13:47:10.413273', '2026-08-24 13:47:10.413275') RETURNING "key" /*application='App'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateMunicipalities (20260824074459)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "municipalities" ("id" bigserial primary key, "name" character varying NOT NULL, "prefecture" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_municipalities_on_prefecture_and_name" ON "municipalities" ("prefecture", "name") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074459') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateSources (20260824074533)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "sources" ("id" bigserial primary key, "municipality_id" bigint NOT NULL, "name" character varying NOT NULL, "url" character varying NOT NULL, "source_type" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_82fc809bb1"
+FOREIGN KEY ("municipality_id")
+  REFERENCES "municipalities" ("id")
+) /*application='App'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_sources_on_municipality_id" ON "sources" ("municipality_id") /*application='App'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_sources_on_municipality_id_and_name" ON "sources" ("municipality_id", "name") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074533') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateBids (20260824074608)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "bids" ("id" bigserial primary key, "title" character varying NOT NULL, "status" character varying, "source_status" character varying, "category" character varying, "location" character varying, "department" character varying, "announcement_date" date, "application_start" date, "application_end" date, "bid_date" date, "project_period" character varying, "project_period_start" date, "project_period_end" date, "summary" text, "qualification" text, "contract" character varying, "bid_amount" decimal(15,2), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_bids_on_title" ON "bids" ("title") /*application='App'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_bids_on_status" ON "bids" ("status") /*application='App'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_bids_on_category" ON "bids" ("category") /*application='App'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_bids_on_announcement_date" ON "bids" ("announcement_date") /*application='App'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_bids_on_application_end" ON "bids" ("application_end") /*application='App'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_bids_on_bid_date" ON "bids" ("bid_date") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074608') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateBidSources (20260824074644)
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "bid_sources" ("id" bigserial primary key, "bid_id" bigint NOT NULL, "souce_id" bigint NOT NULL, "format" character varying NOT NULL, "external_id" character varying, "source_url" character varying NOT NULL, "content_hash" character varying, "fetched_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_a2dca8806b"
+FOREIGN KEY ("bid_id")
+  REFERENCES "bids" ("id")
+, CONSTRAINT "fk_rails_60a7174895"
+FOREIGN KEY ("souce_id")
+  REFERENCES "souces" ("id")
+) /*application='App'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[31mROLLBACK /*application='App'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (162.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "public_bid_search_development" /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (33.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "public_bid_search_test" /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (43.9ms)[0m  [1m[35mCREATE DATABASE "public_bid_search_development" ENCODING = 'unicode' /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35m (46.2ms)[0m  [1m[35mCREATE DATABASE "public_bid_search_test" ENCODING = 'unicode' /*application='App'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='App'*/[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (0) /*application='App'*/[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-08-24 13:48:21.084086', '2026-08-24 13:48:21.084089') RETURNING "key" /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'a71d23a9d8025196df4aad6f0cbff1ce3af537cf', '2026-08-24 13:48:21.088762', '2026-08-24 13:48:21.088765') RETURNING "key" /*application='App'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateMunicipalities (20260824074459)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "municipalities" ("id" bigserial primary key, "name" character varying NOT NULL, "prefecture" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_municipalities_on_prefecture_and_name" ON "municipalities" ("prefecture", "name") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074459') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateSources (20260824074533)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "sources" ("id" bigserial primary key, "municipality_id" bigint NOT NULL, "name" character varying NOT NULL, "url" character varying NOT NULL, "source_type" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_82fc809bb1"
+FOREIGN KEY ("municipality_id")
+  REFERENCES "municipalities" ("id")
+) /*application='App'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_sources_on_municipality_id" ON "sources" ("municipality_id") /*application='App'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_sources_on_municipality_id_and_name" ON "sources" ("municipality_id", "name") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074533') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (2.2ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateBids (20260824074608)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "bids" ("id" bigserial primary key, "title" character varying NOT NULL, "status" character varying, "source_status" character varying, "category" character varying, "location" character varying, "department" character varying, "announcement_date" date, "application_start" date, "application_end" date, "bid_date" date, "project_period" character varying, "project_period_start" date, "project_period_end" date, "summary" text, "qualification" text, "contract" character varying, "bid_amount" decimal(15,2), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='App'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_bids_on_title" ON "bids" ("title") /*application='App'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_bids_on_status" ON "bids" ("status") /*application='App'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_bids_on_category" ON "bids" ("category") /*application='App'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_bids_on_announcement_date" ON "bids" ("announcement_date") /*application='App'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_bids_on_application_end" ON "bids" ("application_end") /*application='App'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_bids_on_bid_date" ON "bids" ("bid_date") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074608') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+Migrating to CreateBidSources (20260824074644)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (4.2ms)[0m  [1m[35mCREATE TABLE "bid_sources" ("id" bigserial primary key, "bid_id" bigint NOT NULL, "souce_id" bigint NOT NULL, "format" character varying NOT NULL, "external_id" character varying, "source_url" character varying NOT NULL, "content_hash" character varying, "fetched_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_a2dca8806b"
+FOREIGN KEY ("bid_id")
+  REFERENCES "bids" ("id")
+, CONSTRAINT "fk_rails_60a7174895"
+FOREIGN KEY ("souce_id")
+  REFERENCES "souces" ("id")
+) /*application='App'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK /*application='App'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateBidSources (20260824074644)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "bid_sources" ("id" bigserial primary key, "bid_id" bigint NOT NULL, "souce_id" bigint NOT NULL, "format" character varying NOT NULL, "external_id" character varying, "source_url" character varying NOT NULL, "content_hash" character varying, "fetched_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_a2dca8806b"
+FOREIGN KEY ("bid_id")
+  REFERENCES "bids" ("id")
+, CONSTRAINT "fk_rails_60a7174895"
+FOREIGN KEY ("souce_id")
+  REFERENCES "souces" ("id")
+) /*application='App'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK /*application='App'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateBidSources (20260824074644)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (4.6ms)[0m  [1m[35mCREATE TABLE "bid_sources" ("id" bigserial primary key, "bid_id" bigint NOT NULL, "source_id" bigint NOT NULL, "format" character varying NOT NULL, "external_id" character varying, "source_url" character varying NOT NULL, "content_hash" character varying, "fetched_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_a2dca8806b"
+FOREIGN KEY ("bid_id")
+  REFERENCES "bids" ("id")
+, CONSTRAINT "fk_rails_93402caf23"
+FOREIGN KEY ("source_id")
+  REFERENCES "sources" ("id")
+) /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bid_sources_on_bid_id" ON "bid_sources" ("bid_id") /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bid_sources_on_source_id" ON "bid_sources" ("source_id") /*application='App'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_bid_sources_on_source_id_and_external_id" ON "bid_sources" ("source_id", "external_id") WHERE external_id IS NOT NULL /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_bid_sources_on_content_hash" ON "bid_sources" ("content_hash") /*application='App'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_bid_sources_on_fetched_at" ON "bid_sources" ("fetched_at") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074644') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO "$user", public /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='App'*/[0m
+Migrating to CreateBidDocuments (20260824074724)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='App'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "bid_documents" ("id" bigserial primary key, "bid_id" bigint NOT NULL, "name" character varying NOT NULL, "document_type" character varying NOT NULL, "format" character varying NOT NULL, "external_id" character varying, "url" character varying NOT NULL, "content_hash" character varying, "fetched_at" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_bc14686f38"
+FOREIGN KEY ("bid_id")
+  REFERENCES "bids" ("id")
+) /*application='App'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_bid_documents_on_bid_id" ON "bid_documents" ("bid_id") /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_bid_documents_on_bid_id_and_external_id" ON "bid_documents" ("bid_id", "external_id") /*application='App'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_bid_documents_on_document_type" ON "bid_documents" ("document_type") /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_bid_documents_on_format" ON "bid_documents" ("format") /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_bid_documents_on_content_hash" ON "bid_documents" ("content_hash") /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260824074724') RETURNING "version" /*application='App'*/[0m
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[35mCOMMIT /*application='App'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(8575097713631593200) /*application='App'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='App'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='App'*/[0m
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
