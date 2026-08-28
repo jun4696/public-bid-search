@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+
+# Rails
+/web/tmp/
+/web/log/
+/web/storage/
+
+# Environment variables
+.env
